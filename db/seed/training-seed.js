@@ -8,8 +8,10 @@ var trainings = [
     name: 'BDD cucumber training',
     description: 'In-house cucumber training course. Cucumber is the worlds most popular open source BDD tool, used by thousands of organisations and companies around the world. Cucumber lets you keep specificaAons, automated tests and documentaAon in the same place - a single source of truth that never gets out of sync.',
     link: 'https://cucumber.io/training',
-    vendor: 'cucumber inc',
-    tags: ['BDD', 'Cucumber', 'TDD', 'Software']
+    organiser: 'cucumber inc',
+    tags: ['BDD', 'Cucumber', 'TDD', 'Software'],
+    deleted: false,
+    dates: [new Date()]
   })
 ];
 
