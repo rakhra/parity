@@ -4,7 +4,29 @@ var Training = require('../models/training');
 var Vote = require('../models/vote');
 var Event = require('../models/event');
 
-/* GET home page. */
+var passport = require('passport');
+
+router.post('/signup', passport.authenticate('local.signup', {
+    successRedirect : '/successjson', 
+    failureRedirect : '/failurejson', 
+    failureFlash : true 
+}));
+
+router.post('/signin', passport.authenticate('local.signin', {
+    successRedirect : '/successjson', 
+    failureRedirect : '/failurejson', 
+    failureFlash : true 
+}));
+
+router.get('/successjson', function(req, res) {
+    res.json({ message: req.flash('info') });
+});
+
+router.get('/failurejson', function(req, res) {
+    res.json({ message: req.flash('error') });
+});
+
+
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
