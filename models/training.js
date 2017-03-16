@@ -8,7 +8,8 @@ var schema = new Schema({
   organiser: { type: String, require: false },
   tags: { type : Array , "default" : [] },
   deleted: { type : Boolean, "default" : false },
-  dates: { type : Array, "default" : [] }
+  dates: { type : Array, "default" : [] },
+  created_by: { type : String, require: false}
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 module.exports = mongoose.model('Training', schema);

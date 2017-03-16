@@ -1,7 +1,10 @@
 var Training = require('../../models/training');
+var User = require('../../models/user');
 var mongoose = require('mongoose');
 
 mongoose.connect('localhost:27017/parity');
+
+var user = User.findOne({});
 
 var trainings = [
   new Training({
@@ -11,7 +14,8 @@ var trainings = [
     organiser: 'cucumber inc',
     tags: ['BDD', 'Cucumber', 'TDD', 'Software'],
     deleted: false,
-    dates: [new Date()]
+    dates: [new Date()],
+    created_by: user._id
   })
 ];
 
@@ -28,3 +32,4 @@ for (var i = 0; i < trainings.length; i++) {
 function exit() {
   mongoose.disconnect();
 }
+

@@ -17,7 +17,8 @@ router.post('/training', isLoggedIn, function(req, res, next) {
     organiser: req.body.organiser,
     tags: req.body.tags,
     deleted: false,
-    dates: dates
+    dates: dates,
+    created_by: req.user._id
   });
 
   training.save(function(err, result) {
@@ -32,22 +33,22 @@ router.post('/training', isLoggedIn, function(req, res, next) {
 });
 
 router.post('/signup', passport.authenticate('local.signup', {
-    successRedirect : '/successjson', 
-    failureRedirect : '/failurejson', 
+    successRedirect : '/success', 
+    failureRedirect : '/failure', 
     failureFlash : true 
 }));
 
 router.post('/signin', passport.authenticate('local.signin', {
-    successRedirect : '/successjson', 
-    failureRedirect : '/failurejson', 
+    successRedirect : '/success', 
+    failureRedirect : '/failure', 
     failureFlash : true 
 }));
 
-router.get('/successjson', function(req, res) {
-    res.json({ message: req.flash('info') });
+router.get('/success', function(req, res) {
+    res.json({ pass: req.flash('info'), user: req.user.email });
 });
 
-router.get('/failurejson', function(req, res) {
+router.get('/failure', function(req, res) {
     res.json({ message: req.flash('error') });
 });
 
@@ -65,10 +66,11 @@ router.get('/training/', function(req, res, next) {
   });
 });
 
-router.post('/vote', function(req, res, next) {
+router.post('/vote', isLoggedIn, function(req, res, next) {
   var vote = new Vote({
     item: req.body.item,
-    item_id: req.body.item_id
+    item_id: req.body.item_id,
+    created_by: req.user._id
   });
   vote.save(function(err, result) {
     if (err) {
@@ -81,7 +83,7 @@ router.post('/vote', function(req, res, next) {
   });
 });
 
-router.delete('/vote/:id', function(req, res, next) {
+router.delete('/vote/:id', isLoggedIn, function(req, res, next) {
   Vote.findOneAndUpdate(req.params.id, {$set: {deleted : true}}, {new : true}, function(err, updatedVote) {
     return res.json(updatedVote);
   });
@@ -107,7 +109,7 @@ router.get('/event/', function(req, res, next) {
   });
 });
 
-router.post('/event', function(req, res, next) {
+router.post('/event', isLoggedIn, function(req, res, next) {
   var dates = req.body.dates.map(function(date) { return new Date(date); });
 
   var event = new Event({
@@ -118,7 +120,8 @@ router.post('/event', function(req, res, next) {
     materials: req.body.materials,
     tags: req.body.tags,
     deleted: false,
-    dates: dates
+    dates: dates,
+    created_by: req.user._id
   });
 
   event.save(function(err, result) {
