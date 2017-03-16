@@ -6,42 +6,8 @@ var Event = require('../models/event');
 
 var passport = require('passport');
 
-router.post('/signup', passport.authenticate('local.signup', {
-    successRedirect : '/successjson', 
-    failureRedirect : '/failurejson', 
-    failureFlash : true 
-}));
 
-router.post('/signin', passport.authenticate('local.signin', {
-    successRedirect : '/successjson', 
-    failureRedirect : '/failurejson', 
-    failureFlash : true 
-}));
-
-router.get('/successjson', function(req, res) {
-    res.json({ message: req.flash('info') });
-});
-
-router.get('/failurejson', function(req, res) {
-    res.json({ message: req.flash('error') });
-});
-
-
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-router.get('/training/', function(req, res, next) {
-  Training.find({ deleted : false }).sort( {updatedAt: -1} ).exec(function(err, training) {
-    if (err) {
-      res.status(500);
-      return res.render('error', {error: err});
-    }
-    return res.json(training);
-  });
-});
-
-router.post('/training', function(req, res, next) {
+router.post('/training', isLoggedIn, function(req, res, next) {
   var dates = req.body.dates.map(function(date) { return new Date(date); });
 
   var training = new Training({
@@ -62,6 +28,40 @@ router.post('/training', function(req, res, next) {
     Training.findById(training._id, function(err, training) {
       return res.json(training);
     });
+  });
+});
+
+router.post('/signup', passport.authenticate('local.signup', {
+    successRedirect : '/successjson', 
+    failureRedirect : '/failurejson', 
+    failureFlash : true 
+}));
+
+router.post('/signin', passport.authenticate('local.signin', {
+    successRedirect : '/successjson', 
+    failureRedirect : '/failurejson', 
+    failureFlash : true 
+}));
+
+router.get('/successjson', function(req, res) {
+    res.json({ message: req.flash('info') });
+});
+
+router.get('/failurejson', function(req, res) {
+    res.json({ message: req.flash('error') });
+});
+
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
+router.get('/training/', function(req, res, next) {
+  Training.find({ deleted : false }).sort( {updatedAt: -1} ).exec(function(err, training) {
+    if (err) {
+      res.status(500);
+      return res.render('error', {error: err});
+    }
+    return res.json(training);
   });
 });
 
@@ -131,5 +131,26 @@ router.post('/event', function(req, res, next) {
     });
   });
 });
+
+router.get('/logout', function(req, res, next) {
+  req.logout();
+  res.redirect('/');
+});
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  req.flash('error', "unauthenticated");
+  res.redirect('/failurejson');
+}
+
+function notLoggedIn(req, res, next) {
+  if (!req.isAuthenticated()) {
+    return next();
+  }
+  req.flash('error', "already authenticated");
+  res.redirect('/failurejson');
+}
 
 module.exports = router;
