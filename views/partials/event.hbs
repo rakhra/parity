@@ -1,0 +1,26 @@
+
+  <div class="panel panel-default">
+     <div class="panel-heading">
+          <span class="label label-danger panel-type pull-right">{{type}}</span>
+        <h4>{{name}}</h4>
+      </div>
+      <div class="panel-body">
+        <div class="clearfix"></div>
+        {{{description}}}
+        <hr>
+        <ul class="list-unstyled">
+          {{#each dates}}
+          <li>
+            <p>{{dateFormat start "ddd, MMMM Do, h:mma"}} - {{duration start end}}</p>
+          </li>
+          {{/each}}
+        </ul>
+        <hr>
+        <div class="input-group">
+          <div class="input-group-btn">
+          <button class="btn btn-primary">Register Me</button>
+          <button class="btn btn-default">Like</button>
+          </div>
+        </div>
+      </div>
+   </div> 

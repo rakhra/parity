@@ -1,0 +1,17 @@
+.panel .panel-type {
+  padding: 5px;
+  font-size: 12px;
+  border-radius: 0;
+}
+
+.panel .panel-heading h4 { 
+  font-size: 22px;
+  line-height: 28px;
+}
+
+
+.panel .panel-body { 
+  font-size: 14px;
+  line-height: 22px;
+  padding-top:0;
+}

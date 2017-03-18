@@ -9,7 +9,10 @@ var schema = new Schema({
   tags: { type : Array , "default" : [] },
   deleted: { type : Boolean, "default" : false },
   dates: { type : Array, "default" : [] },
-  created_by: { type : String, require: false}
+  created_by: { type : String, require: false},
+  sponsor: { type : String, require: true },
+  location: { type : String, require: false },
+  host: { type : String, require: false }
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 module.exports = mongoose.model('Training', schema);

@@ -5,6 +5,15 @@ var Vote = require('../models/vote');
 var Event = require('../models/event');
 
 var passport = require('passport');
+var marked = require('marked');
+
+var chunk = function(arr, chunkSize) {
+  var output = [];
+  for (var i=0; i<arr.length; i+=chunkSize) {
+      output.push(arr.slice(i, i+chunkSize));
+  }
+  return output;
+};
 
 
 router.post('/training', isLoggedIn, function(req, res, next) {
@@ -12,7 +21,7 @@ router.post('/training', isLoggedIn, function(req, res, next) {
 
   var training = new Training({
     name: req.body.name,
-    description: req.body.description,
+    description: marked(req.body.description),
     link: req.body.link,
     organiser: req.body.organiser,
     tags: req.body.tags,
@@ -53,8 +62,43 @@ router.get('/failure', function(req, res) {
 });
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  var trainings = [];
+  var events = [];
+
+  Training.find({})
+  .then(function(output) {
+    trainings = output.map(function(training) {
+      training.type = "Training";
+      return training;
+    });
+    
+    return trainings;
+  })
+  .then(function() {
+    return Event.find({});
+  })
+  .then(function(output) {
+    events = output.map(function(event) {
+        event.type = "Event";
+        return event;
+    });
+    return events;
+  })
+  .then(function() {
+    var eventsAndTrainings = events.concat(trainings);
+
+      var chunks = chunk(eventsAndTrainings, 2);
+
+      return res.render('index', { 
+        eventsAndTrainings : eventsAndTrainings,
+        eventsAndTrainingsSplit : chunks });
+  })
+  .catch(function(err) {
+    res.status(500);
+    return res.render('error', {error: err});
+  });
 });
+  
 
 router.get('/training/', function(req, res, next) {
   Training.find({ deleted : false }).sort( {updatedAt: -1} ).exec(function(err, training) {
@@ -114,7 +158,7 @@ router.post('/event', isLoggedIn, function(req, res, next) {
 
   var event = new Event({
     name: req.body.name,
-    description: req.body.description,
+    description: marked(req.body.description),
     link: req.body.link,
     organiser: req.body.organiser,
     materials: req.body.materials,

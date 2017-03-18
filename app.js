@@ -14,12 +14,19 @@ var MongoStore = require('connect-mongo')(session);
 
 var app = express();
 
+
+
+mongoose.Promise = Promise;  
 mongoose.connect('localhost:27017/parity');
 require('./config/passport');
 
+
+var helpers = require('./lib/helpers');
+
 // view engine setup
-app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
+app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs', helpers : helpers}));
 app.set('view engine', 'hbs');
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

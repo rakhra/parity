@@ -1,2 +1,38 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<nav class="navbar navbar-fixed-top header">
+  <div class="col-md-12">
+        <div class="navbar-header">
+          
+          <a href="#" class="navbar-brand">KNECT</a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
+          <i class="glyphicon glyphicon-search"></i>
+          </button>
+      
+        </div>
+     </div> 
+</nav>
+
+<div class="navbar navbar-default" id="subnav">
+    <div class="col-md-12">
+        <div class="navbar-header">
+             
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse2">
+          <ul class="nav navbar-nav navbar-right">
+             <li class="active"><a href="#">Events</a></li>
+             <li><a href="#loginModal" role="button" data-toggle="modal">Training</a></li>
+             <li><a href="#aboutModal" role="button" data-toggle="modal">Blog</a></li>
+           </ul>
+        </div>  
+     </div> 
+</div>
+
+<!--main-->
+<div class="container" id="main">
+  <div class="row">
+    {{#each eventsAndTrainingsSplit}}
+      {{> event-column this}}
+    {{/each}}
+  </div>
+</div>
+
+
