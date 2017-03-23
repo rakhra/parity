@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Training = require('../models/training');
-var Vote = require('../models/vote');
+var Impression = require('../models/impression');
 var Event = require('../models/event');
 
 var passport = require('passport');
@@ -53,6 +53,10 @@ router.post('/signin', passport.authenticate('local.signin', {
     failureFlash : true 
 }));
 
+router.get('/signin', function(req, res, next) {
+  return res.render('user/signin', {});
+});
+
 router.get('/success', function(req, res) {
     res.json({ pass: req.flash('info'), user: req.user.email });
 });
@@ -64,11 +68,29 @@ router.get('/failure', function(req, res) {
 router.get('/', function(req, res, next) {
   var trainings = [];
   var events = [];
+  var impressions = [];
 
-  Training.find({})
+  
+  Impression.find({deleted : false, created_by: req.user._id})
+  .then(function(output) {
+    impressions = output;
+    return impressions;
+  })
+  .then(function() {
+    return Training.find({});
+  })
   .then(function(output) {
     trainings = output.map(function(training) {
       training.type = "Training";
+
+      training.register = impressions.find(function(item) {
+        item.item_id == training._id && item.verb == 'register' && item.item == training.type;
+      });
+      
+      training.like = impressions.find(function(item) {
+        item.item_id == training._id && item.verb == 'like' && item.item == training.type;
+      });
+
       return training;
     });
     
@@ -79,19 +101,30 @@ router.get('/', function(req, res, next) {
   })
   .then(function(output) {
     events = output.map(function(event) {
-        event.type = "Event";
-        return event;
+      event.type = "Event";
+
+      event.register = impressions.find(function(item) {
+        item.item_id == event._id && item.verb == 'register' && item.item == event.type;
+      });
+      
+      event.like = impressions.find(function(item) {
+        item.item_id == event._id && item.verb == 'like' && item.item == event.type;
+      });
+
+      return event;
     });
+
     return events;
   })
   .then(function() {
     var eventsAndTrainings = events.concat(trainings);
 
-      var chunks = chunk(eventsAndTrainings, 2);
+    var chunks = chunk(eventsAndTrainings, 2);
 
-      return res.render('index', { 
-        eventsAndTrainings : eventsAndTrainings,
-        eventsAndTrainingsSplit : chunks });
+    return res.render('index', { 
+      eventsAndTrainings : eventsAndTrainings,
+      eventsAndTrainingsSplit : chunks,
+      user : req.user });
   })
   .catch(function(err) {
     res.status(500);
@@ -110,38 +143,54 @@ router.get('/training/', function(req, res, next) {
   });
 });
 
-router.post('/vote', isLoggedIn, function(req, res, next) {
-  var vote = new Vote({
-    item: req.body.item,
+
+router.post('/impression/:verb/:item', isLoggedIn, function(req, res, next) {
+  var impression = new Impression({
+    item: req.params.item,
     item_id: req.body.item_id,
+    verb: req.params.verb,
     created_by: req.user._id
   });
-  vote.save(function(err, result) {
+  impression.save(function(err, result) {
     if (err) {
       res.status(500);
       return res.render('error', { error: err });
     }
-    Vote.findById(vote._id, function(err, vote) {
-      return res.json(vote);
+    Impression.findById(impression._id, function(err, impression) {
+      return res.json(impression);
     });
   });
 });
 
-router.delete('/vote/:id', isLoggedIn, function(req, res, next) {
-  Vote.findOneAndUpdate(req.params.id, {$set: {deleted : true}}, {new : true}, function(err, updatedVote) {
-    return res.json(updatedVote);
+
+router.delete('/impression/:id', isLoggedIn, function(req, res, next) {
+  Impression.findOneAndUpdate(req.params.id, {$set: {deleted : true}}, {new : true}, function(err, updatedImpression) {
+    return res.json(updatedImpression);
   });
 });
 
-router.get('/vote/:item', function(req, res, next) {
-  Vote.find({ item : req.params.item, deleted : false }).sort( {updatedAt: -1} ).exec(function(err, votes) {
+
+router.get('/impression/:verb/:item', isLoggedIn, function(req, res, next) {
+  Impression.find({ item : req.params.item, verb : req.params.verb, deleted : false }).sort( {updatedAt: -1} ).exec(function(err, impressions) {
     if (err) {
       res.status(500);
       return res.render('error', {error: err});
     }
-    return res.json(votes);
+    return res.json(impressions);
   });
 });
+
+
+router.get('/impression/', isLoggedIn, function(req, res, next) {
+  Impression.find({ created_by: req.user._id, verb : req.params.verb, deleted : false }).sort( {updatedAt: -1} ).exec(function(err, impressions) {
+    if (err) {
+      res.status(500);
+      return res.render('error', {error: err});
+    }
+    return res.json(impressions);
+  });
+});
+
 
 router.get('/event/', function(req, res, next) {
   Event.find({ deleted : false }).sort( {updatedAt: -1} ).exec(function(err, event) {
