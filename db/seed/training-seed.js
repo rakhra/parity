@@ -10,6 +10,10 @@ var user = User.findOne({});
 var trainings = [
   new Training({
     name: 'BDD cucumber training',
+    short_description: marked(
+        `In-house cucumber training course. Cucumber is the worlds most popular open source BDD tool, used by thousands of organisations and companies around the world. 
+      Cucumber lets you keep specificaAons, automated tests and documentaAon in the same place - a single source of truth that never gets out of sync.`
+      ),
     description: marked(
       
       `In-house cucumber training course. Cucumber is the worlds most popular open source BDD tool, used by thousands of organisations and companies around the world. 
@@ -30,8 +34,14 @@ var trainings = [
 
   new Training({
     name: 'Microservices YOW! DepthFirst Workshop',
+    short_description: marked(
+      `A hands on 1 day workshop with industry expert Fred George. The focus of the workshop will be on:
+Understanding how to design asynchronous service architectures
+Creating small, yet functional, services rather than larger services,
+Reducing coupling to the bare minimum (JSON packets with extra fields ignored), and
+Debugging asynchronous systems.`
+      ),
     description:  marked(
-
       `A hands on 1 day workshop with industry expert Fred George. The focus of the workshop will be on:
 Understanding how to design asynchronous service architectures
 Creating small, yet functional, services rather than larger services,
@@ -53,8 +63,10 @@ Debugging asynchronous systems.`
 
   new Training({
     name: 'Designing Better Responsive Experiences Workshop',
+    short_description: marked(
+      `In this full-day front-end workshop on Friday June 2 2017, Vitaly Friedman from Smashing Magazine will be providing you with smart and applicable solutions for your day to day responsive design problems.`
+    ),
     description:  marked(
-
       `In this full-day front-end workshop on Friday June 2 2017, Vitaly Friedman from Smashing Magazine will be providing you with smart and applicable solutions for your day to day responsive design problems.
     After this workshop you are able to:
     Come up with better solutions for complex responsive UX-design problems

@@ -1,13 +1,28 @@
+$(document).ready(function() {  
+});
 
-$(document).ready(function(){/* jQuery toggle layout */
-$('#btnToggle').click(function(){
-  if ($(this).hasClass('on')) {
-    $('#main .col-md-6').addClass('col-md-4').removeClass('col-md-6');
-    $(this).removeClass('on');
-  }
-  else {
-    $('#main .col-md-4').addClass('col-md-6').removeClass('col-md-4');
-    $(this).addClass('on');
-  }
-});
-});
+var impression = function(itemType, itemId, verb) {
+  $.post("/impression/" + verb + "/" + itemType, {item_id :  itemId})
+    .done(function(data) {
+      location.reload();
+    });
+};
+
+
+var removeImpression = function(itemId) {
+  $.ajax({
+    url: "/impression/" + itemId,
+    type: 'DELETE',
+    data: {}, 
+    contentType:'application/json', 
+    
+    success: function(result) {
+      location.reload();
+    },
+    
+    error: function(result) {
+
+    }
+  });
+};
+

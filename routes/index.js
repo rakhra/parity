@@ -65,7 +65,44 @@ router.get('/failure', function(req, res) {
     res.json({ message: req.flash('error') });
 });
 
+router.get('/event/:id', function(req, res, next) {
+  var event = null;
+  var impressions = null;
+
+  Event.findById(req.params.id)
+  .then(function(output) {
+    event = output.toObject();
+    event.type = "Event";
+    return event;
+  })
+  .then(function() {
+    return Impression.findOne({
+      deleted : false, 
+      created_by: req.user._id,
+      item: "Event",
+      item_id : event._id,
+      verb: "register"});
+  })
+  .then(function(output) {
+    var finalEvent = event;
+    if (output != null) {
+      finalEvent = Object.assign({register: output}, event);  
+    }
+    
+    return res.render('event', { event: finalEvent });
+  })
+  .catch(function(err) {
+    res.status(500);
+    return res.render('error', {error: err});
+  });
+});
+
+router.get('/about', function(req, res, next) {
+  return res.render('about', { });
+});
+
 router.get('/', function(req, res, next) {
+  var user = req.user._id;
   var trainings = [];
   var events = [];
   var impressions = [];
@@ -77,42 +114,51 @@ router.get('/', function(req, res, next) {
     return impressions;
   })
   .then(function() {
-    return Training.find({});
+    return Training.find({deleted : false});
   })
   .then(function(output) {
     trainings = output.map(function(training) {
-      training.type = "Training";
+      var additions = {};
 
-      training.register = impressions.find(function(item) {
-        item.item_id == training._id && item.verb == 'register' && item.item == training.type;
+      additions.type = "Training";
+
+      additions.register = impressions.find(function(item) {
+        item.item_id == training._id && item.verb == 'register' 
+          && item.item == additions.type;
       });
       
-      training.like = impressions.find(function(item) {
-        item.item_id == training._id && item.verb == 'like' && item.item == training.type;
+      additions.like = impressions.find(function(item) {
+        item.item_id == training._id && item.verb == 'like' 
+          && item.item == additions.type;
       });
 
-      return training;
+      return Object.assign(additions, training.toObject());
     });
     
     return trainings;
   })
   .then(function() {
-    return Event.find({});
+    return Event.find({ deleted : false});
   })
   .then(function(output) {
     events = output.map(function(event) {
-      event.type = "Event";
+      var additions = {};
 
-      event.register = impressions.find(function(item) {
-        item.item_id == event._id && item.verb == 'register' && item.item == event.type;
+      additions.type = "Event";
+
+      additions.register = impressions.find(function(item) {
+        return item.item_id == event._id && item.verb == 'register' && item.item == additions.type;
       });
       
-      event.like = impressions.find(function(item) {
-        item.item_id == event._id && item.verb == 'like' && item.item == event.type;
+      additions.like = impressions.find(function(item) {
+        return item.item_id == event._id && item.verb == 'like' && item.item == additions.type;
       });
 
-      return event;
+      return Object.assign(additions, event.toObject());
     });
+       
+
+    
 
     return events;
   })
@@ -120,6 +166,7 @@ router.get('/', function(req, res, next) {
     var eventsAndTrainings = events.concat(trainings);
 
     var chunks = chunk(eventsAndTrainings, 2);
+    
 
     return res.render('index', { 
       eventsAndTrainings : eventsAndTrainings,
@@ -156,7 +203,7 @@ router.post('/impression/:verb/:item', isLoggedIn, function(req, res, next) {
       res.status(500);
       return res.render('error', { error: err });
     }
-    Impression.findById(impression._id, function(err, impression) {
+    Impression.findById(result._id, function(err, impression) {
       return res.json(impression);
     });
   });
@@ -164,7 +211,10 @@ router.post('/impression/:verb/:item', isLoggedIn, function(req, res, next) {
 
 
 router.delete('/impression/:id', isLoggedIn, function(req, res, next) {
-  Impression.findOneAndUpdate(req.params.id, {$set: {deleted : true}}, {new : true}, function(err, updatedImpression) {
+  Impression.findOneAndUpdate( {_id: req.params.id }, 
+    {$set: {deleted : true}}, {upsert: true, new : true}, 
+    function(err, updatedImpression) {
+      
     return res.json(updatedImpression);
   });
 });

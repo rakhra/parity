@@ -10,6 +10,15 @@ var user = User.findOne({});
 var events = [
   new Event({
     name: 'The Event Loop',
+    short_description: marked(
+`Javascript is taking over the world. Node has made it possible to build web services that are written end to end in Javascript. But given the fact that Javascript is single threaded, how is it possible that we:
+
+1. build such services that scale and perform well under heavy loads from multiple clients
+2. discuss Javascript using terms such as 'asynchronous', 'conncurent' and 'non-blocking'
+
+In this talk we will learn how asynchrous code actually get executed at runtime.`      
+    ),
+
     description:  marked(
 
 `Javascript is taking over the world. Node has made it possible to build web services that are written end to end in Javascript. But given the fact that Javascript is single threaded, how is it possible that we:
@@ -38,6 +47,10 @@ In this talk we will learn how asynchrous code actually get executed at runtime.
   }),
   new Event({
     name: 'Webconf.asia',
+    short_description: marked(
+    `Webconf.asia is a one day conference featuring awesome talks with practical advice from international web experts.`
+      ),
+
     description: marked(
       `Webconf.asia is a one day conference featuring awesome talks with practical advice from international web experts.`
       ),
@@ -54,6 +67,10 @@ In this talk we will learn how asynchrous code actually get executed at runtime.
   }),
   new Event({
     name: 'RISE Conf Hong Kong',
+    short_description: marked(
+    `RISE is produced by the team behind Web Summit. In 6 short years, Web Summit has become Europe’s largest tech conference which last year attracted 53,000 attendees from 136 countries around the world. 
+      In July 2017, people from the world’s biggest companies and most exciting startups will come to Hong Kong to share their stories and experiences at RISE. They’ll be joined by major global media, hundreds of investors and thousands of attendees for three days of legendary networking.`
+    ),
     description: marked(
 
       `RISE is produced by the team behind Web Summit. In 6 short years, Web Summit has become Europe’s largest tech conference which last year attracted 53,000 attendees from 136 countries around the world. 

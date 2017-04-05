@@ -6,7 +6,9 @@
       </div>
       <div class="panel-body">
         <div class="clearfix"></div>
-        {{{description}}}
+        
+          {{{short_description}}}
+        
         <hr>
         <ul class="list-unstyled">
           {{#each dates}}
@@ -18,8 +20,12 @@
         <hr>
         <div class="input-group">
           <div class="input-group-btn">
-          <button class="btn btn-primary" onClick="impression('{{type}}','register','{{_id}}')">Register Me</button>
-          <button class="btn btn-default" onClick="impression('{{type}}','like', '{{_id}}')">Like</button>
+          {{#if register}}
+            <button class="btn btn-alert" onClick="removeImpression('{{register._id}}')">Unregister</button>
+          {{else}}
+            <button class="btn btn-primary" onClick="impression('{{type}}','{{_id}}', 'register')">Register Me</button>
+          {{/if}}
+          <a class="btn" href="/event/{{_id}}">Read More</a>
           </div>
         </div>
       </div>

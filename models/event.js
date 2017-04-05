@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var schema = new Schema({
   name: { type: String, require: true },
   description: { type: String, require: true },
+  short_description: { type: String, require: true },
   link: { type: String, require: false },
   organiser: { type: String, require: false },
   materials: { type: Object, require: false },
