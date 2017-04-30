@@ -7,6 +7,8 @@ var Event = require('../models/event');
 var passport = require('passport');
 var marked = require('marked');
 
+var icalEvent = require('../lib/ical-event');
+
 var chunk = function(arr, chunkSize) {
   var output = [];
   for (var i=0; i<arr.length; i+=chunkSize) {
@@ -281,6 +283,34 @@ router.post('/event', isLoggedIn, function(req, res, next) {
 router.get('/logout', function(req, res, next) {
   req.logout();
   res.redirect('/');
+});
+
+
+router.get('/calendar/event', function(req, res, next) {
+  Event.find({ deleted : false}).sort( {updatedAt: -1} )
+  .then(function(events) {
+    events = events.map(function(e) {return e.toObject();});
+    var ical = icalEvent.icalEventFeed(events);
+    return ical.serve(res);  
+  })
+  .catch(function(err) {
+    res.status(500);
+    return res.render('error', {error: err});
+  });
+});
+
+
+router.get('/calendar/event/:id', function(req, res, next) {
+  //event ical invite
+  Event.findById(req.params.id)
+  .then(function(event) {
+    var ical = icalEvent.icalEvent(event.toObject());
+    ical.serve(res);
+  })
+  .catch(function(err) {
+    res.status(500);
+    return res.render('error', {error: err});
+  });
 });
 
 function isLoggedIn(req, res, next) {
