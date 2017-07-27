@@ -18,8 +18,8 @@ var events = yaml.safeLoad(fs.readFileSync(eventDataFile, 'utf8')).events;
 
 events.forEach(function(event) {
   event.short_description = marked(event.short_description);
-  event.description = event.description;
-  event.host = event.host;
+  event.description = marked(event.description);
+  event.host = marked(event.host);
 
   event.dates.forEach(function(date) {
     date.start = new Date(date.start);

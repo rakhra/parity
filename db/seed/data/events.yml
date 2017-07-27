@@ -87,3 +87,250 @@ events:
     sponsor: N/A
 
 
+
+
+  - name: Cloud Native Java Workshop
+    short_description: > 
+      In this workshop we’ll look at how to build cloud-native Java applications. A cloud native application is one that is designed to fully exploit a cloud platform both in the application layer – where things decompose into microservices – and at the data layer where NoSQL offers better horizontal scaling and fitness for specific purpose.
+    description: >
+      In this workshop we’ll look at how to build cloud-native Java applications. A cloud native application is one that is designed to fully exploit a cloud platform both in the application layer – where things decompose into microservices – and at the data layer where NoSQL offers better horizontal scaling and fitness for specific purpose.
+      
+
+      We’ll look at:
+      
+
+      *   Writing services and handling non-functional requirements like metrics and logging with Spring Boot
+      
+      *   scaling out safely and building fault-tolerant systems using Spring Cloud and its support for distributed systems patterns like the circuit breaker, service registration and discovery, and centralized configuration management.
+      
+      *   offloading as much operational work as possible to the platform, Cloud Foundry
+    host: >
+      Josh is the Spring Developer Advocate at Pivotal. Josh is a Java Champion, author of 5 books (including O’Reilly’s upcoming Cloud Native Java: Designing Resilient Systems with Spring Boot, Spring Cloud, and Cloud Foundry) and 3 best-selling video trainings (including Building Microservices with Spring Boot Livelessons with Spring Boot co-founder Phil Webb), and an open-source contributor (Spring Boot, Spring Integration, Spring Cloud, Activiti and Vaadin)
+    link: http://www.yowconference.hk/workshops/cloud-native-java-workshop/
+    organiser: YOW!
+    tags:
+      - Workshop
+      - Cloud
+      - Java
+      - Spring
+      - Software
+    deleted: false
+    dates: 
+      - start: September 6, 2017 08:30:00
+        end: September 6, 2017 17:00:00
+    location: The Wave, 4 Hing Yip Street, Kwun Tong, Hong Kong
+    sponsor: ADJF
+
+
+
+
+  - name: High Performance Messaging With Aeron
+    short_description: > 
+      In this workshop you will learn how to build microservices with Aeron and SBE in Java. Microservices capable of handling millions of messages per second with very low and predictable response times. We will cover some networking theory and the design of Aeron so you know how to use it with mechanical sympathy.
+    description: >
+      In this workshop we’ll look at how to build cloud-native Java applications. A cloud native application is one that is designed to fully exploit a cloud platform both in the application layer – where things decompose into microservices – and at the data layer where NoSQL offers better horizontal scaling and fitness for specific purpose.
+      
+
+      Topics covered will include:
+
+
+      *   Network Fundamentals
+
+      *   Aeron Design
+
+      *   Encoding & decoding messages with SBE for zero copy semantics
+
+      *   Handling large messages and streaming
+
+      *   Monitoring, debugging, and spying on streams
+
+      *   Basic tuning for performance and resource management
+
+      *   “Multicasting” in the cloud with multi-channel-cast
+
+      *   Configuring message delivery service levels: allow loss, reliable, durable, etc.
+
+      *   Flow control and congestion control strategies – When and how to use them.
+
+      *   Customising channel endpoints for extending Aeron, e.g. testing loss scenarios.
+    host: >
+      Martin is a Java Champion with over 2 decades of experience building complex and high-performance computing systems. He is most recently known for his work on [Aeron](https://github.com/real-logic/Aeron) and [SBE](https://github.com/real-logic/simple-binary-encoding). Previously at LMAX he was the co-founder and CTO when he created the [Disruptor](http://lmax-exchange.github.io/disruptor/). Prior to LMAX Martin worked for Betfair, three different content companies wrestling with the world largest product catalogues, and was a lead on some of the most significant C++ and Java systems of the 1990s in the automotive and finance domains.
+      He blogs at [mechanical-sympathy.blogspot.com](https://mechanical-sympathy.blogspot.com.au/), and can be found giving training courses on performance and concurrency when he is not cutting code to make systems better.
+    link: http://www.yowconference.hk/workshops/high-performance-messaging-aeron/
+    organiser: YOW!
+    tags:
+      - Workshop
+      - Performance
+      - Aeron
+      - SBE
+      - Microservices
+      - Cloud
+      - Java
+      - Software
+    deleted: false
+    dates: 
+      - start: September 5, 2017 08:30:00
+        end: September 5, 2017 17:00:00
+    location: The Wave, 4 Hing Yip Street, Kwun Tong, Hong Kong
+    sponsor: ADJF
+ 
+
+
+
+  - name: Learn Elixir With Prag Dave
+    short_description: > 
+      Elixir is the new hot language among folks who are looking for performance, reliability and scalability. It also helps that its a fun language to use.
+      If you’re already a programmer, you can pick up most of Elixir in a day. Come and join Dave Thomas (author of Programming Elixir) as we explore the language. We’ll all be coding most of the day as we follow a progression of exercises, each illustrating new features of the language and its environment.
+    description: >
+      Elixir is the new hot language among folks who are looking for performance, reliability and scalability. It also helps that its a fun language to use.
+      
+
+      If you’re already a programmer, you can pick up most of Elixir in a day. Come and join Dave Thomas (author of Programming Elixir) as we explore the language. We’ll all be coding most of the day as we follow a progression of exercises, each illustrating new features of the language and its environment.
+      
+
+      This course has a flexible agenda—we’ll go fast, but were not committed to complete all the material. Instead, the goal is to give you a solid foundation from which to start coding Elixir on your own.
+      
+      
+      Topics covered will include:
+      
+
+      *   Effective use of tools such as IEx and mix
+      
+      *   Syntax and semantics of Elixir
+      
+      *   Functional programming, transformation, and pattern matching
+      
+      *   Structuring projects
+      
+      *   Testing
+      
+      *   Concurrency, processes, and the actor model
+      
+      *   Agents and tasks
+      
+      *   OTP Applications, Supervisors, and Servers
+      
+      *   Phoenix
+    host: >
+      Dave Thomas wrote The Pragmatic Programmer (with Andy Hunt), The Manifesto for Agile Software Development (with 16 other middle-aged white guys), Programming Ruby, Agile Web Development with Rails, and Programming Elixir. He wrote his first program 45 years ago, and still codes every day. He’s the offline backup for the other Dave Thomas who organizes YOW.
+    link: http://www.yowconference.hk/workshops/learn-elixir-pragdave/
+    organiser: YOW!
+    tags:
+      - Workshop
+      - Elixir
+      - Performance
+      - Software
+    deleted: false
+    dates: 
+      - start: September 4, 2017 08:30:00
+        end: September 4, 2017 17:00:00
+    location: The Wave, 4 Hing Yip Street, Kwun Tong, Hong Kong
+    sponsor: ADJF  
+
+
+
+
+  - name: Microservices - Let's Build Some (V2)
+    short_description: > 
+      While “micro-services” is becoming a heavily over-worked term, it has been interpreted many ways. In this hands-on workshop we will explore a particular style, tiny asynchronous services, that was the core of one of the most successful implementations. Given an animated specification of flow, we will embark on delivering the proposed services, wrestling with the issues common to this new paradigm
+    description: >
+      While “micro-services” is becoming a heavily over-worked term, it has been interpreted many ways. In this hands-on workshop we will explore a particular style, tiny asynchronous services, that was the core of one of the most successful implementations. Given an animated specification of flow, we will embark on delivering the proposed services, wrestling with the issues common to this new paradigm. Participants have a choice of languages, with new starting code in Java, C#, and Ruby. At the end of the workshop, we will discuss MicroServices challenges and organizations that are optimized for such architectures.
+      
+
+      Attendee Requirements:
+      
+
+      *   Read [fred george microservice workshop](https://github.com/fredgeorge/microservice_workshop)
+      
+      *   Download [fred george microservice workshop](https://github.com/fredgeorge/microservice_workshop)
+      
+      *   Laptop
+    host: >
+      Fred George is an industry consultant, and has been writing code for nearly 50 years in (by his count) over 75 languages. He has delivered projects and products across his career, and in the last decade alone, has worked in the US, India, China, and the UK. He started ThoughtWorks University in Bangalore, India, based on a commercial programming training program he developed in the 90’s. An early adopter of OO and Agile, Fred continues to impact the industry with his leading -edge ideas, most recently advocating Micro Service Architectures and flat team structures (under the moniker of Programmer Anarchy). He travels the globe speaking and consulting on these topics. Oh, and he still writes code!
+    link: http://www.yowconference.hk/workshops/microservices-lets-build-v2/
+    organiser: YOW!
+    tags:
+      - Workshop
+      - Microservices
+      - Software
+    deleted: false
+    dates: 
+      - start: September 6, 2017 08:30:00
+        end: September 6, 2017 17:00:00
+    location: The Wave, 4 Hing Yip Street, Kwun Tong, Hong Kong
+    sponsor: ADJF
+
+
+
+
+  - name: Beyond Relational - Applying Big Data Cloud Pipeline Patterns
+    short_description: > 
+      In this full-day workshop, you will learn applied big data solution patterns. most often, but not always using the public cloud. We’ll cover Amazon Web Services and Google Cloud Platform, and work with in small groups to design data pipeline architectures for common scenarios.
+    description: >
+      In this full-day workshop, you will learn applied big data solution patterns. most often, but not always using the public cloud. We’ll cover Amazon Web Services and Google Cloud Platform, and work with in small groups to design data pipeline architectures for common scenarios.
+      
+
+      We’ll discuss database categories, products and understand actual cost to use one or more database types in your solution(s). Using combinations of Big Relational (for hot, cold or cold data), and one or more types from the NoSQL category (Key-value, Wide-column, Document or Graph) and sometimes even along with NewSQL, we’ll design implementable solutions. We’ll also cover what types of problems are best suited to the Hadoop ecosystem (including use of Spark and the associated libraries).
+    host: >
+      Lynn Langit is an independent software architect and educator. She is an AWS Community Hero, Google Cloud Developer Expert, Microsoft MVP and technical author for LinkedIn Learning. She has most recently worked as a lead architect on AWS IoT Enterprise project where she applied Mob Programming.
+      
+
+      Lynn is also Director & Lead Courseware Author for “Teaching Kids Programming”. She has 8 years experience authoring technical courseware for middle school kids and has been a key contributor to TKPJava courseware library with 70+ open source kids coding lessons.
+    link: http://www.yowconference.hk/workshops/beyond-relational-applying-big-data-cloud-pipeline-patterns/
+    organiser: YOW!
+    tags:
+      - Workshop
+      - Big Data
+      - AWS
+      - Google Cloud
+      - NOSQL
+      - Software
+    deleted: false
+    dates: 
+      - start: September 5, 2017 08:30:00
+        end: September 5, 2017 17:00:00
+    location: The Wave, 4 Hing Yip Street, Kwun Tong, Hong Kong
+    sponsor: ADJF
+
+
+
+  - name: Architecting Enterprise Transformation
+    short_description: > 
+      Gregor Hohpe has been a recognised expert in architecture for over 15 years, most recently with his work with a large worldwide insurance company. This is a special opportunity to spend a day learning and sharing experiences on how to navigate a digital transformation in the enterprise.
+    description: >
+      Gregor Hohpe has been a recognised expert in architecture for over 15 years, most recently with his work with a large worldwide insurance company. This is a special opportunity to spend a day learning and sharing experiences on how to navigate a digital transformation in the enterprise.
+      Many large enterprises are under pressure to transform their IT architecture and organization, as their business is attacked by “digital disruptors”. IT architects can play a key role in such a transformation because they combine the technical, communication, and organizational skill to apply IT for the benefit of the business. Their job is not an easy one, though: they must maneuver in an organization where IT is often still seen as a cost center, where operations means “run” as opposed to “change”, and where middle-management has become cozy neither understanding the business strategy nor the underlying technology.
+      This workshop illustrates how software or IT architects can play an active role in driving the digital transformation of a large enterprise. To do so, they need to extend their horizon beyond dealing with technology to navigate organizational politics, get management attention, work with external vendors, and pick the right battles. The examples and anecdotes originate from the presenter’s experience as Chief Architect in a large financial services organization that is undergoing a massive IT transformation.
+      
+      
+      This workshop covers the different aspects a chief architect has to tackle as part of a digital transformation including:
+      
+
+      *   The role and qualities of an enterprise or IT architect
+      
+      *   How architecture influences digital transformation
+      
+      *   How to communicate to a variety of stakeholders to instigate change
+      
+      *   Understanding organizational structures and systems
+      
+      *   Putting it all together to achieve innovation and transformation
+    host: >
+      Gregor is a recognized thought leader on asynchronous messaging and service-oriented architectures. He is widely known as co-author of the seminal book “Enterprise Integration Patterns” and as frequent speaker at conferences around the world. He is an active member of the IEEE Software editorial advisory board.
+      
+
+      As Chief IT Architect at Allianz, Gregor is responsible for driving the digital transformation of the insurance business. He documented his experience as an architect driving IT transformation in the eBook "37 Things One Architect Knows".
+    link: http://www.yowconference.hk/workshops/architecting-enterprise-transformation-37-things-one-architect-knows/
+    organiser: YOW!
+    tags:
+      - Workshop
+      - Transformation
+      - Architecture
+      - Enterprise
+      - Software
+    deleted: false
+    dates: 
+      - start: September 5, 2017 08:30:00
+        end: September 5, 2017 17:00:00
+    location: The Wave, 4 Hing Yip Street, Kwun Tong, Hong Kong
+    sponsor: ADJF
