@@ -1,0 +1,35 @@
+<div class="updateform">
+<form action="/event/update/{{event._id}}" method="post">
+  Event Name:<br>
+  <input type="text" name="name" value="{{event.name}}">
+  <br>
+  Organiser:<br>
+  <input type="text" name="organiser" value="{{event.organiser}}">
+  <br>
+  Link:<br>
+  <input type="text" name="link" value="{{event.link}}">
+  <br>
+  Tags:<br>
+  <input type="text" name="tags" value="{{event.tags}}">
+  <br>
+  Sponsor:<br>
+  <input type="text" name="sponsor" value="{{event.sponsor}}">
+  <br>
+  Location:<br>
+  <input type="text" name="location" value="{{event.location}}">
+  <br>
+  Host Description (HTML):<br>
+  <input type="text" name="host" value="{{event.host}}">
+  <br>
+  Short Description (HTML):<br>
+  <textarea rows="10" type="text" name="short_description">{{event.short_description}}</textarea>
+  <br>
+  Description (HTML):<br>
+  <textarea rows="10" type="text" name="description">{{event.description}}</textarea>
+  <br>
+  Dates [example - Wed Apr 05 2017 16:00:00 GMT+0800 (HKT),Wed Apr 05 2017 16:30:00 GMT+0800 (HKT) ]:<br>
+  <input type="text" name="datesCSV" value="{{event.datesCSV}}">
+  <br><br>
+  <input type="submit" value="Submit">
+</form> 
+</div>

@@ -1,3 +1,6 @@
+
+global.__base = __dirname + '/';
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,6 +14,8 @@ var session = require('express-session');
 var passport = require('passport');
 var flash = require('connect-flash');
 var MongoStore = require('connect-mongo')(session);
+const config = require(__base + 'config/config');
+
 
 var app = express();
 
@@ -19,7 +24,7 @@ var app = express();
 mongoose.Promise = Promise;  
 var isConnectedBefore = false;
 var connect = function() {
-    mongoose.connect('localhost:27017/parity', {server: { auto_reconnect: true }});
+    mongoose.connect(config.mongo.host, {server: { auto_reconnect: true }});
 };
 connect();
 

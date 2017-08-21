@@ -18,6 +18,51 @@ var chunk = function(arr, chunkSize) {
 };
 
 
+router.post('/event/update/:id', isLoggedIn, function(req, res, next) {
+  
+    var dates = req.body.datesCSV.split(',');
+    dates = chunk(dates, 2);
+    dates = dates.map(function(datePair) {
+      return { start: new Date(datePair[0]), end: new Date(datePair[1])};
+    });
+
+    var tags = req.body.tags.split(',');
+    
+
+    updates = req.body;
+    delete updates.datesCSV;
+    updates.dates = dates;
+    updates.tags = tags;
+
+    Event.findOneAndUpdate( {_id: req.params.id }, 
+      {$set: updates }, {upsert: true, new : true}, 
+      function(err, updatedEvent) {
+        
+      return res.json(updatedEvent);
+    });
+});
+
+router.get('/event/update/:id', isLoggedIn, function(req, res, next) {
+
+
+  Event.findById(req.params.id).then(function(output) {
+    var event = output.toObject();
+    event.datesCSV = event.dates.map(function(date) {
+      return `${date.start},${date.end}`;
+    }).join(',');
+    return res.render('update', {
+      event : event,
+      user : req.user
+    });
+  }).catch(function(err) {
+    if (err) {
+      res.status(500);
+      return res.render('error', { error: err });
+    }
+  });
+});
+
+
 router.post('/training', isLoggedIn, function(req, res, next) {
   var dates = req.body.dates.map(function(date) { return new Date(date); });
 
